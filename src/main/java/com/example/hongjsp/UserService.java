@@ -8,14 +8,26 @@ import java.sql.SQLException;
 public class UserService {
 
     public boolean registerUser(User user) {
-        String sql = "INSERT INTO tb_user (name, password, age, role) VALUES (?, ?, ?, ?)";
+        String sqlCheck = "SELECT id FROM tb_user WHERE id = ?";
+        String sqlInsert = "INSERT INTO tb_user (id, name, password, age, role) VALUES (?, ?, ?, ?, ?)";
+
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, user.getName());
-            stmt.setString(2, user.getPassword());
-            stmt.setInt(3, user.getAge());
-            stmt.setString(4, user.getRole());
-            stmt.executeUpdate();
+             PreparedStatement stmtCheck = conn.prepareStatement(sqlCheck);
+             PreparedStatement stmtInsert = conn.prepareStatement(sqlInsert)) {
+
+            stmtCheck.setString(1, user.getId());
+            try (ResultSet rs = stmtCheck.executeQuery()) {
+                if (rs.next()) {
+                    return false; // User ID already exists
+                }
+            }
+
+            stmtInsert.setString(1, user.getId());
+            stmtInsert.setString(2, user.getName());
+            stmtInsert.setString(3, user.getPassword());
+            stmtInsert.setInt(4, user.getAge());
+            stmtInsert.setString(5, user.getRole());
+            stmtInsert.executeUpdate();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -12,6 +12,7 @@
     <title>修改用户基本信息</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>修改用户基本信息</h2>
 <form method="post" action="editProfile">
     姓名: <input type="text" name="name" value="<%= user != null ? user.getName() : "" %>" required><br>

@@ -1,36 +1,113 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Knyn
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.example.hongjsp.User, com.example.hongjsp.UserService" %>
-<%
-    if (request.getParameter("submit") != null) {
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        int age = Integer.parseInt(request.getParameter("age"));
-        String role = request.getParameter("role");
-
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setAge(age);
-        user.setRole(role);
-
-        UserService userService = new UserService();
-        if (userService.registerUser(user)) {
-            out.println("注册成功");
-        } else {
-            out.println("注册失败");
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <style>
+        /* 重置样式，消除默认边距和填充 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-%>
-
-<form method="post" action="register.jsp">
-    姓名: <input type="text" name="name" required><br>
-    密码: <input type="password" name="password" required><br>
-    年龄: <input type="text" name="age"><br>
-    权限: <input type="text" name="role"><br>
-    <input type="submit" name="submit" value="注册">
-</form>
-
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('images/bg.png'); /* 设置背景图片路径 */
+            background-size: cover; /* 确保背景图片覆盖整个页面 */
+            background-position: center; /* 居中背景图片 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 确保 body 占据整个视窗高度 */
+            margin: 0;
+        }
+        .register-container {
+            background: rgba(255, 255, 255, 0.2); /* 半透明背景颜色 */
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .input-container label {
+            flex: 1;
+            text-align: right;
+            margin-right: 10px;
+        }
+        .input-container input[type="text"],
+        .input-container input[type="password"] {
+            flex: 2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .register-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .register-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="register-container">
+    <h2>注册</h2>
+    <form method="post" action="register">
+        <div class="input-container">
+            <label for="userID">学号:</label>
+            <input type="text" id="userID" name="userID" required>
+        </div>
+        <div class="input-container">
+            <label for="name">姓名:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="input-container">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="input-container">
+            <label for="age">年龄:</label>
+            <input type="text" id="age" name="age">
+        </div>
+        <div class="button-container">
+            <input type="submit" value="注册">
+        </div>
+    </form>
+    <p class="message">
+        <%= request.getParameter("message") != null ? request.getParameter("message") : "" %>
+    </p>
+    <p class="error">
+        <%= request.getAttribute("msg") != null ? request.getAttribute("msg") : "" %>
+    </p>
+</div>
+</body>
+</html>

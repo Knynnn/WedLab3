@@ -10,6 +10,7 @@
     <title>修改密码</title>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <h2>修改密码</h2>
 <form method="post" action="changePassword">
     新密码: <input type="password" name="newPassword" required><br>
