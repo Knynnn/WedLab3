@@ -23,16 +23,16 @@ public class UserService {
         }
     }
 
-    public User loginUser(String name, String password) {
-        String sql = "SELECT * FROM tb_user WHERE name = ? AND password = ?";
+    public User loginUser(String id, String password) {
+        String sql = "SELECT * FROM tb_user WHERE id = ? AND password = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, name);
+            stmt.setString(1, id);
             stmt.setString(2, password);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User();
-                    user.setId(rs.getInt("id"));
+                    user.setId(rs.getString("id"));
                     user.setName(rs.getString("name"));
                     user.setPassword(rs.getString("password"));
                     user.setAge(rs.getInt("age"));
@@ -53,7 +53,7 @@ public class UserService {
             stmt.setString(1, user.getName());
             stmt.setInt(2, user.getAge());
             stmt.setString(3, user.getRole());
-            stmt.setInt(4, user.getId());
+            stmt.setString(4, user.getId());
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -62,12 +62,12 @@ public class UserService {
         }
     }
 
-    public boolean changePassword(int userId, String newPassword) {
+    public boolean changePassword(String userId, String newPassword) {
         String sql = "UPDATE tb_user SET password = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, newPassword);
-            stmt.setInt(2, userId);
+            stmt.setString(2, userId);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -76,15 +76,15 @@ public class UserService {
         }
     }
 
-    public User getUserById(int userId) {
+    public User getUserById(String userId) {
         String sql = "SELECT * FROM tb_user WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setString(1, userId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     User user = new User();
-                    user.setId(rs.getInt("id"));
+                    user.setId(rs.getString("id"));
                     user.setName(rs.getString("name"));
                     user.setPassword(rs.getString("password"));
                     user.setAge(rs.getInt("age"));

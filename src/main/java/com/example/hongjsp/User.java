@@ -1,18 +1,18 @@
 package com.example.hongjsp;
 
 public class User {
-    private int id;
+    private String id;
     private String name;
     private String password;
     private int age;
     private String role;
 
     // Getters and setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
