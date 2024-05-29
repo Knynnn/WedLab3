@@ -14,7 +14,7 @@
         }
         body {
             font-family: Arial, sans-serif;
-            background-image: url('images/bg.png'); /* 设置背景图片路径 */
+            background-image: url('images/bg.jpeg'); /* 设置背景图片路径 */
             background-size: cover; /* 确保背景图片覆盖整个页面 */
             background-position: center; /* 居中背景图片 */
             display: flex;

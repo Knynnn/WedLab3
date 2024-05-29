@@ -1,65 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>首页</title>
-  <style>
-    /* 重置样式，消除默认边距和填充 */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding-bottom: 50px; /* 为底部预留空间 */
-    }
-    .header {
-      background-color: #C91523;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 10px 0;
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #e16355;
-      padding: 10px 20px;
-      color: #FFFFFF;
-    }
-    .nav a {
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 10px;
-    }
-    .nav .right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .nav .right button {
-      margin-left: 5px;
-      padding: 5px 10px;
-    }
-    .nav .right button a {
-      color: black;
-      text-decoration: none;
-    }
-    .footer {
-      background-color: #C91523;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 10px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 <div class="header">
@@ -92,7 +39,58 @@
 </div>
 
 <div class="content">
-  <!-- 其他内容 -->
+  <!-- 主内容区域 -->
+  <div class="main">
+    <div class="content">
+      <div class="image-news">
+        <img src="images/slide1.jpeg" alt="红色长廊">
+        <p>
+          12月3日，广州大学举行党建红色文化长廊教育宣传启动仪式，标志着该校党建红色文化长廊正式启用。
+          长廊绵延千米，以时间为线索，通过科技互动、文化体验等多元化表现手段，生动讲述中国共产党走过的峥嵘岁月，
+          着重凸显中国共产党人的精神谱系，将打造成沉浸式、立体化的党史学习教育新阵地。
+        </p>
+      </div><!-- 新闻列表部分 -->
+      <div class="news-list">
+        <div class="news-header">
+          <h2>头条广大</h2>
+        </div>
+        <ul>
+          <li>
+            <span class="date">2024-05-16</span>
+            <a href="news.html">广州高校首场 《中华民族共同体概论》导读分享会在广州...</a>
+          </li>
+          <li>
+            <span class="date">2024-05-15</span>
+            <a href="news.html">校党委常委会传达学习习近平总书记五四青年节对全国广大...</a>
+          </li>
+          <li>
+            <span class="date">2024-05-15</span>
+            <a href="news.html">2024年保密委员会第一次全体会议暨全校保密工作会议召开</a>
+          </li>
+          <li>
+            <span class="date">2024-05-14</span>
+            <a href="news.html">广州大学2024年全面从严治党工作会议暨党纪学习教育读书...</a>
+          </li>
+          <li>
+            <span class="date">2024-05-13</span>
+            <a href="news.html">你们辛苦了，广大的白衣天使 ——校领导护士节暖心...</a>
+          </li>
+          <li>
+            <span class="date">2024-05-13</span>
+            <a href="news.html">我校物流管理专业在第四届国际供应链建模设计大赛中获得...</a>
+          </li>
+          <li>
+            <span class="date">2024-05-13</span>
+            <a href="news.html">我校接受建筑学专业本科教育及建筑学硕士学位研究生教育...</a>
+          </li>
+          <li>
+            <span class="date">2024-05-13</span>
+            <a href="news.html">我校学子勇夺第九届国际大学生智能农业装备创新大赛特等奖</a>
+          </li>　
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="footer">
