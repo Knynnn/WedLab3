@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@WebServlet("/PlayServlet")
+@WebServlet("/play")
 public class PlayServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

@@ -41,6 +41,7 @@ body, html {
     grid-row: 2 / 5;
     grid-column: 2 / 9;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -65,13 +66,14 @@ body, html {
 }
 
 .question {
+    display: none;
     margin-bottom: 20px;
     font-size: 24px;
     color: black;
 }
 
 .options {
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -85,4 +87,36 @@ body, html {
 
 .option:hover {
     background-color: #ddd;
+}
+
+.score-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.score {
+    font-size: 24px;
+    color: red;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+#retry-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    background-color: red;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#retry-button:hover {
+    background-color: darkred;
 }

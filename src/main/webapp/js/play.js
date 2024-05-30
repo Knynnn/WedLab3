@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     let currentQuestionIndex = 0;
     let score = 0;
+    let inProgress = false;
 
     const blocks = document.querySelectorAll('.red-block');
     const order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 23, 22, 21, 20, 19, 18, 17, 16, 15, 13, 11, 9];
@@ -26,65 +27,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(moveImage, 2000);
 
+    const questionContainer = document.querySelector('.question-container');
+    const questions = document.querySelectorAll('.question-container .question');
+    const optionsContainers = document.querySelectorAll('.question-container .options');
+    const scoreContainer = document.querySelector('.score-container');
+    const scoreElement = document.querySelector('.score');
+    const retryButton = document.querySelector('#retry-button');
+
     function showQuestion(index) {
-        if (!questions || questions.length === 0) {
-            console.error("Questions array is empty or not defined");
-            return;
-        }
-
-        if (!questions[index]) {
-            console.error("Question at index " + index + " is null or undefined");
-            return;
-        }
-
-        const questionContainer = document.querySelector('.question-container');
-        const questionElement = document.querySelector('.question');
-        const optionsElement = document.querySelector('.options');
-
-        const questionData = questions[index];
-
-        questionElement.innerText = questionData.question;
-        optionsElement.innerHTML = '';
-
-        questionData.options.forEach((option, i) => {
-            const optionElement = document.createElement('div');
-            optionElement.className = 'option';
-            optionElement.innerText = option;
-            optionElement.addEventListener('click', () => {
-                if (i === questionData.answer) {
-                    score++;
-                    document.querySelector('.image').src = "images/pic1.jpeg";
-                } else {
-                    document.querySelector('.image').src = "images/pic2.jpeg";
-                }
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    showQuestion(currentQuestionIndex);
-                } else {
-                    showScore();
-                }
-            });
-            optionsElement.appendChild(optionElement);
+        questions.forEach((question, i) => {
+            question.style.display = i === index ? 'block' : 'none';
+            optionsContainers[i].style.display = i === index ? 'flex' : 'none';
         });
-
-        questionContainer.style.display = 'flex';
     }
 
     function showScore() {
-        const questionContainer = document.querySelector('.question-container');
         questionContainer.style.display = 'none';
-
-        const contentElement = document.querySelector('.content');
-        contentElement.innerHTML = `<h1>你的得分是：${score} / ${questions.length}</h1>`;
+        scoreContainer.style.display = 'flex';
+        scoreElement.innerHTML = `你的得分是：${score} / ${questions.length}`;
         document.querySelector('.image').src = "images/pic1.jpeg";
+        retryButton.style.display = 'block';  // 显示重新答题按钮
+        inProgress = false;  // Reset progress to allow fetching new questions
+    }
+
+    function initializeQuestions() {
+        optionsContainers.forEach((optionsContainer, questionIndex) => {
+            const questionData = optionsContainer.dataset;
+            const options = optionsContainer.querySelectorAll('.option');
+
+            options.forEach((option, i) => {
+                option.addEventListener('click', () => {
+                    if (i === parseInt(questionData.answer)) {
+                        score++;
+                        document.querySelector('.image').src = "images/pic1.jpeg";
+                    } else {
+                        document.querySelector('.image').src = "images/pic2.jpeg";
+                    }
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion(currentQuestionIndex);
+                    } else {
+                        showScore();
+                    }
+                });
+            });
+        });
+
+        showQuestion(currentQuestionIndex);
     }
 
     document.body.addEventListener('keydown', function (event) {
-        if (event.code === 'Space') {
+        if (event.code === 'Space' && !inProgress) {
             console.log("Space key pressed");
-            console.log("Questions:", questions);
             document.querySelector('.intro').style.display = 'none';
-            showQuestion(currentQuestionIndex);
+            questionContainer.style.display = 'flex';
+            scoreContainer.style.display = 'none';
+            retryButton.style.display = 'none';  // 隐藏重新答题按钮
+            inProgress = true;
+            initializeQuestions();
         }
+    });
+
+    retryButton.addEventListener('click', function() {
+        location.reload();
     });
 });
