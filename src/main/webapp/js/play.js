@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const scoreContainer = document.querySelector('.score-container');
     const scoreElement = document.querySelector('.score');
     const retryButton = document.querySelector('#retry-button');
+    const leaderboardButton = document.querySelector('#leaderboard-button');
+    const scoreForm = document.querySelector('#score-form');
+    const userIdInput = document.querySelector('#userId');
+    const scoreInput = document.querySelector('#score');
+    const submitResult = document.querySelector('#submit-result');
 
     function showQuestion(index) {
         questions.forEach((question, i) => {
@@ -45,9 +50,24 @@ document.addEventListener("DOMContentLoaded", () => {
         questionContainer.style.display = 'none';
         scoreContainer.style.display = 'flex';
         scoreElement.innerHTML = `你的得分是：${score} / ${questions.length}`;
-        document.querySelector('.image').src = "images/pic1.jpeg";
-        retryButton.style.display = 'block';  // 显示重新答题按钮
-        inProgress = false;  // Reset progress to allow fetching new questions
+        retryButton.style.display = 'block';
+        leaderboardButton.style.display = 'block';
+        inProgress = false;
+
+        // 提交分数
+        scoreInput.value = score;
+
+        // 使用 Ajax 提交表单
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'play', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                submitResult.innerHTML = xhr.responseText;
+                submitResult.style.display = 'block';
+            }
+        };
+        xhr.send(`userId=${encodeURIComponent(userIdInput.value)}&score=${encodeURIComponent(score)}`);
     }
 
     function initializeQuestions() {
@@ -82,7 +102,8 @@ document.addEventListener("DOMContentLoaded", () => {
             document.querySelector('.intro').style.display = 'none';
             questionContainer.style.display = 'flex';
             scoreContainer.style.display = 'none';
-            retryButton.style.display = 'none';  // 隐藏重新答题按钮
+            retryButton.style.display = 'none';
+            leaderboardButton.style.display = 'none';
             inProgress = true;
             initializeQuestions();
         }

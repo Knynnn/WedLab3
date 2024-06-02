@@ -60,6 +60,7 @@
             <h1 class="score"></h1>
             <div class="button-container">
                 <button id="retry-button" style="display: none;">重新答题</button>
+                <button id="leaderboard-button" style="display: none;" onclick="window.location.href='leaderboard.jsp'">查看排行榜</button>
             </div>
         </div>
     </div>
@@ -73,6 +74,12 @@
     <div class="red-block"></div>
     <div class="red-block"></div>
 </div>
+
+<form id="score-form" action="play" method="post">
+    <input type="hidden" name="userId" id="userId" value="<%= session.getAttribute("userID") %>">
+    <input type="hidden" name="score" id="score" value="">
+</form>
+
 
 </body>
 <script src="js/play.js"></script>

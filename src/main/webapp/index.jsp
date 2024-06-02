@@ -14,9 +14,10 @@
 </div>
 <div class="nav">
   <a href="index.jsp">首页</a>
-  <a href="news.jsp">头条广大</a>
-  <a href="#">校园动态</a>
+  <a href="news.html">头条广大</a>
+  <a href="play">党史100题</a>
   <a href="#">最美广大</a>
+  <a href="#">联系我们</a>
   <div class="right">
     <%
       if (session.getAttribute("userID") == null) {
