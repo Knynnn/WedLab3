@@ -109,4 +109,21 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean verifyOldPassword(String userId, String oldPassword) {
+        String sql = "SELECT password FROM tb_user WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String dbPassword = rs.getString("password");
+                    return dbPassword.equals(oldPassword);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

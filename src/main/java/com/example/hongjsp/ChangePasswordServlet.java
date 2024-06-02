@@ -32,9 +32,24 @@ public class ChangePasswordServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } else {
             String userID = (String) session.getAttribute("userID");
+            String currentPassword = request.getParameter("currentPassword");
             String newPassword = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
 
             UserService userService = new UserService();
+
+            if (!newPassword.equals(confirmPassword)) {
+                request.setAttribute("message", "新密码和确认密码不匹配");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+                return;
+            }
+
+            if (!userService.verifyOldPassword(userID, currentPassword)) {
+                request.setAttribute("message", "旧密码错误");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+                return;
+            }
+
             if (userService.changePassword(userID, newPassword)) {
                 // 使当前会话无效
                 session.invalidate();

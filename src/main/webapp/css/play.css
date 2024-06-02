@@ -123,3 +123,13 @@ body, html {
 #retry-button:hover, #leaderboard-button:hover {
     background-color: darkred;
 }
+
+.admin-controls {
+    background-color: #C91523;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

@@ -56,7 +56,7 @@
             <h1 class="score"></h1>
             <div class="button-container">
                 <button id="retry-button" style="display: none;">重新答题</button>
-                <button id="leaderboard-button" style="display: none;" onclick="window.location.href='leaderboard.jsp'">查看排行榜</button>
+                <button id="leaderboard-button" style="display: none;" onclick="window.location.href='leaderboard'">查看排行榜</button>
             </div>
         </div>
     </div>
@@ -76,6 +76,17 @@
     <input type="hidden" name="score" id="score" value="">
 </form>
 
+
+<%
+    String role = (String) session.getAttribute("role");
+    if (role != null && role.equals("管理员")) {
+%>
+<div class="admin-controls">
+    <a href="manage.jsp">编辑题目</a>
+</div>
+<%
+    }
+%>
 
 </body>
 <script src="js/play.js"></script>
