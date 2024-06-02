@@ -37,10 +37,7 @@
         <div class="question-container">
             <%
                 List<Question> questions = (List<Question>) request.getAttribute("questions");
-                if (questions == null) {
-                    out.println("<p>无法加载问题，请通过正确的入口访问此页面。</p>");
-                } else {
-                    for (Question question : questions) {
+                for (Question question : questions) {
             %>
             <div class="question" data-answer="<%= question.getAnswer() %>">
                 <%= question.getQuestion() %>
@@ -52,7 +49,6 @@
                 <div class="option"><%= question.getOption4() %></div>
             </div>
             <%
-                    }
                 }
             %>
         </div>
