@@ -31,7 +31,7 @@
     %>
     <span><%= name %>（<%= userID %>）</span>
     <a href="changePassword.jsp">修改密码</a>
-    <a href="editProfile.jsp">修改个人信息</a>
+    <a href="editProfile">修改个人信息</a>
     <a href="logout.jsp">注销</a>
     <%
       }
